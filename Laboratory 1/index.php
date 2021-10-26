@@ -2,7 +2,9 @@
 include 'Words.php';
 include 'Test.php';
 
+session_start();
 $words = new Words();
+$test = new Test();
 ?>
 
 <!DOCTYPE html>
@@ -29,17 +31,19 @@ $words = new Words();
     <?php
         $words->getWords();
     ?>
-
-    <?php
-        if(isset($_POST['startTest'])){
-            $test = new Test();
-            $test->startTest();
-        }
-    ?>
     
     <br>
     <form action="" method="post">
         <input type="submit" name="startTest" value="Take a test">
-    </form>
+    </form><br>
+
+    <?php
+        if(isset($_POST['startTest'])){
+            $test->startTest();
+        }
+        if(isset($_POST['submitTest'])){
+            $test->checkTest($_POST);
+        }
+    ?>
 </body>
 </html>
